@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bluffy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        /* Loading Screen */
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .popup-content {
+            background-color: #222;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 90%;
+            width: 400px;
+            text-align: center;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        /* Main Content (hidden initially) */
+        .main-content {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        header {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        a{
+            text-decoration: none;
+        }
+        .x-logo {
+            width: 28px;
+            height: 28px;
+            margin-right: 20px;
+        }
+        
+        /* Updated image container styles */
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            padding: 20px;
+        }
+        
+        .centered-image {
+            max-width: 100%;
+            max-height: 70vh;
+            width: auto;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
+            display: block; /* Ensures proper centering */
+            margin: 0 auto; /* Centers the image horizontally */
+        }
+        
+        .action-button {
+            padding: 12px 28px;
+            background-color: #fff;
+            color: #000;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 20px auto; /* Centers the button */
+            display: block; /* Needed for margin auto to work */
+        }
+        
+        @media (max-width: 768px) {
+            .centered-image {
+                max-height: 60vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader-container" id="loader">
+        <div class="loader"></div>
+        <p>Loading...</p>
+    </div>
+    
+    <!-- Popup Overlay -->
+    <div class="popup-overlay" id="popup">
+        <div class="popup-content">
+            <button class="popup-close" id="closePopup">✕</button>
+            <h2>Welcome to Bluffy!</h2>
+            <p>Thanks for visiting.</p>
+            <button class="action-button" id="acceptPopup">Got It!</button>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <header>
+           <a href="https://x.com/i/flow/login"><svg viewBox="0 0 24 24" class="x-logo" fill="#fff">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg></a> 
+            <h1 style="font-size: 1.2rem; font-weight: 600;">X</h1>
+        </header>
+        
+        <main>
+            <div class="image-container">
+                <img src="./src/image/Untitled31_20250323091530.png" alt="Featured Content" class="centered-image">
+            </div>
+            <a href="next.html"><button class="action-button">Explore Now</button></a>
+        </main>
+    </div>
+
+    <script>
+        // Simulate loading
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                // Hide loader
+                document.getElementById('loader').style.opacity = '0';
+                
+                // Show main content
+                document.getElementById('mainContent').style.opacity = '1';
+                
+                // Show popup after slight delay
+                setTimeout(function() {
+                    document.getElementById('popup').style.opacity = '1';
+                    document.getElementById('popup').style.pointerEvents = 'auto';
+                    document.getElementById('popup').querySelector('.popup-content').style.transform = 'scale(1)';
+                }, 500);
+                
+                // Remove loader from DOM after transition
+                setTimeout(function() {
+                    document.getElementById('loader').style.display = 'none';
+                }, 1000);
+            }, 1500); // Adjust this time to match your actual loading time
+        });
+        
+        // Close popup functionality
+        document.getElementById('closePopup').addEventListener('click', closePopup);
+        document.getElementById('acceptPopup').addEventListener('click', closePopup);
+        
+        function closePopup() {
+            document.getElementById('popup').style.opacity = '0';
+            document.getElementById('popup').style.pointerEvents = 'none';
+            document.getElementById('popup').querySelector('.popup-content').style.transform = 'scale(0.9)';
+        }
+    </script>
+</body>
+</html>
